@@ -1,14 +1,8 @@
 const Discord = require('discord.js');
 const token = require('./token.json');
 const config = require('./config.json');
-
 var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
-var username, ausgabe;
-
-var jsonData = {};
-
-const HTTP = new XMLHttpRequest();
-const url = 'https://aoe2.net/api/leaderboard?game=aoe2de&leaderboard_id=3&search=Mond2001'; // Später search=username
+var url = 'https://aoe2.net/api/leaderboard?game=aoe2de&leaderboard_id=3&search=Mond2001'; // Später search=username
 
 const client = new Discord.Client();
 
@@ -24,29 +18,29 @@ client.once('ready', () => {
 
 client.on('message', message => {
 
-    if (message.content === config.prefix + 'ladder') {
-        HTTP.onreadystatechange = function () {
-            if (HTTP.readyState < 4) {
-                console.log('Erwarte Daten...');
-            } else if (HTTP.readyState === 4) {
-                if (HTTP.status == 200 && HTTP.status < 300) {
-                    var json = JSON.parse(HTTP.responseText);
-                    console.log(json);
-                    act_on_response(json);
+    if (message.content === config.prefix + 'spieler') {
+
+        const xhr = new XMLHttpRequest();
+
+        xhr.onload = function () {
+            if (this.status === 200) {
+                try {
+                    const resObj = JSON.parse(this.responseText);
+                    console.log(resObj.total); // Gibt Anzahl der Spieler wieder...
+
+                    message.channel.send('Aktuell sind `' + resObj.total + '` Spieler in der Rangliste 1vs1-Zufallskarte eingetragen.');
+                } catch (e) {
+                    console.warn('JSON konnte nicht geparsed werden!');
                 }
+                console.log(this.responseText);
             } else {
-                console.log('FEHLER!');
+                console.warn('Keine Daten erhalten!');
             }
-        }
+        };
 
-        HTTP.open('GET', url, true);
-        HTTP.responseTpye = 'text';
-        HTTP.send(null);
-    }
+        xhr.open('GET', 'https://aoe2.net/api/leaderboard?game=aoe2de&leaderboard_id=3&search=Mond2001');
+        xhr.send(null);
 
-    function act_on_response(res) {
-        jasonData = res;
-        console.log(jsonData); // Return aktuell = {}
     }
 
 });
