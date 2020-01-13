@@ -3,11 +3,12 @@ const token = require('./token.json');
 const config = require('./config.json');
 
 var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
-var username;
-var ausgabe;
+var username, ausgabe;
+
+var jsonData = {};
 
 const HTTP = new XMLHttpRequest();
-const url = 'https://aoe2.net/leaderboard/aoe2de/rm-1v1?search[value]=Mond2001'; // Später value=username
+const url = 'https://aoe2.net/api/leaderboard?game=aoe2de&leaderboard_id=3&search=Mond2001'; // Später search=username
 
 const client = new Discord.Client();
 
@@ -24,13 +25,32 @@ client.once('ready', () => {
 client.on('message', message => {
 
     if (message.content === config.prefix + 'ladder') {
-        HTTP.open("GET", url);
-        HTTP.send();
-
-        HTTP.onreadystatechange = (e) => {
-           console.log(HTTP.responseText);
+        HTTP.onreadystatechange = function () {
+            if (HTTP.readyState < 4) {
+                console.log('Erwarte Daten...');
+            } else if (HTTP.readyState === 4) {
+                if (HTTP.status == 200 && HTTP.status < 300) {
+                    var json = JSON.parse(HTTP.responseText);
+                    console.log(json);
+                    act_on_response(json);
+                }
+            } else {
+                console.log('FEHLER!');
+            }
         }
+
+        HTTP.open('GET', url, true);
+        HTTP.responseTpye = 'text';
+        HTTP.send(null);
     }
+
+    function act_on_response(res) {
+        jasonData = res;
+        console.log(jsonData); // Return aktuell = {}
+    }
+
 });
+
+
 
 client.login(token.id);
