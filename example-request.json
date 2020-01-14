@@ -1,0 +1,26 @@
+{
+    "total": 17372,
+    "leaderboard_id": 3,
+    "start": 1,
+    "count": 1,
+    "leaderboard": [{
+        "profile_id": 384083,
+        "rank": 10456,
+        "rating": 938,
+        "steam_id": "76561198077832045",
+        "icon": null,
+        "name": "Mond2001",
+        "clan": "GKL",
+        "country": null,
+        "previous_rating": 916,
+        "highest_rating": 983,
+        "streak": 3,
+        "lowest_streak": -5,
+        "highest_streak": 3,
+        "games": 17,
+        "wins": 8,
+        "losses": 9,
+        "drops": 0,
+        "last_match": 1578866810
+    }]
+}
