@@ -109,17 +109,13 @@ client.on('message', message => {
                     .setTimestamp()
                     .setFooter('Statistken von aoe2.net', iconAoeNET);
 
-                    var debug = true;
-                    if(debug) {
-                        message.channel.send(embedRM);
-                    }
-
+                    message.channel.send(embedRM);
 
                 } catch (e) {
                     console.warn('Fehler: ' + e);
                     message.channel.send(':warning: **Ups! Also irgendwas ist schiefgelaufen.**\n' + 
                     'Wahrscheinlich gibt es den Spieler in dieser Rangliste nicht oder der Server hat' + 
-                    'nicht geantwortet ...');
+                    ' nicht geantwortet ...');
                 }
 
             } else {
