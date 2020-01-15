@@ -8,6 +8,8 @@ const xhr = new XMLHttpRequest();
 const prefix = config.prefix;
 
 var urlRM = 'https://aoe2.net/api/leaderboard?game=aoe2de&leaderboard_id=3&search=';
+var steamIcon = 'https://vignette.wikia.nocookie.net/ageofempires/images/a/ad/AoEIIDE_icon.png/revision/latest?cb=20191107172622'; // TODO Steam API für Profilbilder
+var iconAoeNET = 'https://aoe2.net/assets/images/125504a37739b91c50d3c1673bfb00a3-favicon.png';
 
 const client = new Discord.Client();
 
@@ -33,6 +35,19 @@ function ladderProzent(v) {
         return "0.001";
     }
     return v;
+}
+
+function checkClan(c) {
+    if (c === null) {
+        return "_Kein Clan_";
+    }
+    return c;
+}
+
+function ladeDaten() {
+
+    // TODO Auslagern des Requests
+
 }
 
 client.once('ready', () => {
@@ -64,17 +79,42 @@ client.on('message', message => {
                     const resObj = JSON.parse(this.responseText);
                     const stat = resObj.leaderboard[0];
                     var platzProzent = stat.rank / resObj.total;
+                    var siegProzent = ((stat.wins / stat.games)*100).toFixed(1) + '%';
 
-                    console.warn(platzProzent);
+                    //message.channel.send('**Statistiken von ' + stat.name + ' (Rangliste: RM)**\nClan: ' + 
+                    //checkClan(stat.clan) + '\nRang: ' + stat.rank + ' von ' + resObj.total + 
+                    //' Spielern (Top: ' + ladderProzent(platzProzent) + '%)\nELO: ' + stat.rating + 
+                    //' (Rekord: ' + stat.highest_rating + ')\nAktuelle Streak: ' + stat.streak + '\nSpiele: ' + 
+                    //stat.games + ' (Siege: ' + stat.wins + ' | Niederlagen: ' + stat.losses + ' | Drops: ' + 
+                    //stat.drops + ')'  + '\nLetztes Spiel: ' + ermittleZeit(stat.last_match) + ' (' + stat.last_match + ')');
 
-                    message.channel.send('**Statistiken von ' + stat.name + ' (Rangliste: RM)**\nClan: ' + 
-                    stat.clan + '\nRang: ' + stat.rank + ' von ' + resObj.total + 
-                    ' Spielern (Top: ' + ladderProzent(platzProzent) + '%)\nELO: ' + stat.rating + 
-                    ' (Rekord: ' + stat.highest_rating + ')\nAktuelle Streak: ' + stat.streak + '\nSpiele: ' + 
-                    stat.games + ' (Siege: ' + stat.wins + ' | Niederlagen: ' + stat.losses + ' | Drops: ' + 
-                    stat.drops + ')'  + '\nLetztes Spiel: ' + ermittleZeit(stat.last_match) + ' (' + stat.last_match + ')');
+                    const embedRM = new Discord.RichEmbed()
+                    .setColor('#0099ff')
+                    .setTitle(stat.name + ' - Clan: ' + checkClan(stat.clan)) // USERNAME
+                    .setURL('')
+                    .setAuthor('Statistken - Zufallskarten-Rangliste (RM)', steamIcon, '')
+                    .setDescription('')
+                    .setThumbnail(steamIcon)
+                    .addField('ELO', stat.rating,  true)
+                    .addField('Spiele', stat.games,  true)
+                    .addField('Siege', stat.wins,  true)
+                    .addField('Niederlagen', stat.losses,  true)
+                    .addField('Drops', stat.drops, true)
+                    .addField('Siege in %', siegProzent, true)
+                    .addField('Aktuelle Streak', stat.streak, true)
+                    .addField('Höchste ELO', stat.highest_rating, true)
+                    .addBlankField()
+                    .addField('Rang', stat.rank + '/' + resObj.total, true)
+                    .addField('Letztes Spiel', ermittleZeit(stat.last_match), true)
+                    .setTimestamp()
+                    .setFooter('Statistken von aoe2.net', iconAoeNET);
 
-                    console.log(ermittleZeit(stat.last_match));
+                    var debug = true;
+                    if(debug) {
+                        message.channel.send(embedRM);
+                    }
+
+
                 } catch (e) {
                     console.warn('Fehler: ' + e);
                     message.channel.send(':warning: **Ups! Also irgendwas ist schiefgelaufen.**\n' + 
@@ -92,6 +132,8 @@ client.on('message', message => {
         xhr.send(null);
 
     }
+
+
 
     // TODO Neue Funktion - .spieler - Zeigt aktuelle Spieleranzahl an.
     // message.channel.send('Aktuell sind `' + resObj.total + '` Spieler in der Rangliste 1vs1-Zufallskarte eingetragen.');
