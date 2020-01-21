@@ -1,4 +1,10 @@
 {
     "prefix": ".",
-    "version": "v0.2"
+    "version": "v0.2.1",
+    "urlAPI": "https://aoe2.net/api/leaderboard?game=aoe2de&leaderboard_id=",
+    "playerID": [{
+        "nap": "<id>",
+        "platinGER": "<id>",
+        "Mond2001": "<id>"
+    }]
 }
