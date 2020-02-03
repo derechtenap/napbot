@@ -18,18 +18,14 @@ const xhr = new XMLHttpRequest();
 
 var methoden = {
 
-
-
     // -- .ladder -- 
 
     ladder: function ausgabeDaten(args) {
   
         // -- XMLRequest --
 
-        //function ladeDaten(args) {
             let config = configPath;
-            var ladderID = args[0],
-                player = args[1];
+            var ladderID = args[0], player = args[1];
 
             ladderID = ermittleRangliste(ladderID);
 
@@ -82,13 +78,8 @@ var methoden = {
                     return 4;
                 }
                 console.warn('FEHLER BEI DER LADDER AUSWAHL!')
-                return -1; // FEHLER
+                return -1;
             }
-
-        //}
-
-         //console.log('STAT UNTEN ===' + stat);
-
 
     }
 

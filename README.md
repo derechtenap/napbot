@@ -8,14 +8,14 @@ Der Prefix des Bots ist standardmäßig ein Punkt ("**.**"). Mit Hilfe der *conf
 * .help {} - Zeigt alle Verfügbren Befehle an.
 * .version {} - Gibt die Version des Bots aus.
 ### Parameter: 
-* ladder_id - 0,1,2,3,4 **ODER** UNR, DM, TDM, RM und TRM
+* ladder_id - UNR, DM, TDM, RM und TRM
 * name - Gewünschter Spielername
 >(UNR = Unranked, DM = Deathmatch, TDM = Team Deathmatch, RM = Random Map und TRM = Team Random Map)
 ## Voraussetzungen
 1. Eigener Bot, mit Token (Token muss in einer *token.json* gespeichert werden)
 ```json
 {
-    "id": "<Token>";
+    "id": "<Token>"
 }
 ```
 2. [DiscordJS](https://github.com/discordjs) und seine Voraussetzungen (Siehe DiscordJS-ReadMe)
