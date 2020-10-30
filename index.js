@@ -1,6 +1,6 @@
 'use strict';
 
-// DiscordJS und Fetch
+// DiscordJS und Fetch ---------------------------------------------------
 const Discord = require('discord.js');
 const fetch = require('node-fetch');
 
@@ -23,15 +23,16 @@ client.on('ready', () => {
     .catch(console.error);
 });
 
-client.on('message', msg => {
-    const ARGS = msg.content.slice(prefix.length).split(' ');
+// Client on message -----------------------------------------------------
+client.on('message', message => {
+    const ARGS = message.content.slice(prefix.length).split(' ');
     const command = ARGS.shift().toLowerCase();
 
     // Ignore messages without prefix and bot messages...
-    if(!msg.content.startsWith(prefix) || msg.author.bot) return; 
+    if(!message.content.startsWith(prefix) || message.author.bot) return; 
 
     if(commandList.includes('version') && command === 'version') {
-        msg.channel.send('`' + misc.data.version() + '`');
+        message.channel.send('`' + misc.data.version() + '`');
     }
 });
 
