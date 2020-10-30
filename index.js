@@ -25,8 +25,8 @@ client.on('ready', () => {
 
 // Client on message -----------------------------------------------------
 client.on('message', message => {
-    const ARGS = message.content.slice(prefix.length).split(' ');
-    const command = ARGS.shift().toLowerCase();
+    const args = message.content.slice(prefix.length).split(' ');
+    const command = args.shift().toLowerCase();
 
     // Ignore messages without prefix and bot messages...
     if(!message.content.startsWith(prefix) || message.author.bot) return; 
