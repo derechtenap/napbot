@@ -1,10 +1,11 @@
 'use strict';
 
-const CONFIG = require('./config.json'); 
+const { version } = require('./config.json'); 
 
+// Misc methods ----------------------------------------------------------
 var methods = {
     version: function displayVersion() {
-        return CONFIG.version;
+        return version;
     }
 }
 
