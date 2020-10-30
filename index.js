@@ -2,11 +2,11 @@
 
 // DiscordJS und Fetch ---------------------------------------------------
 const Discord = require('discord.js');
-const fetch = require('node-fetch');
 
 const client = new Discord.Client();
 
 const misc = require('./misc.js');
+const stats = require('./stats.js');
 
 // Config and Token
 const { prefix, language, commandList } = require('./config.json');
@@ -32,7 +32,22 @@ client.on('message', message => {
     if(!message.content.startsWith(prefix) || message.author.bot) return; 
 
     if(commandList.includes('version') && command === 'version') {
-        message.channel.send('`' + misc.data.version() + '`');
+        message.reply('`' + misc.data.version() + '`');
+    }
+
+    if(commandList.includes('profiles') && command === 'profiles') {
+        message.reply('ich habe diese Profile gefunden:');
+        message.channel.send('`' + misc.data.profiles() + '`');   
+    }
+
+    if(commandList.includes('stats') && command === 'stats') {
+        if(args.length < 2) {
+            message.reply(`dieser Befehl benötigt mehr Parameter!` +
+            ` → ${prefix}help`);
+        } else {
+            console.info('Okay!');
+            message.channel.send('`' + stats.data.getStats(args[0], args[1]) + '`');
+        }
     }
 });
 

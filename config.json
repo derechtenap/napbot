@@ -1,8 +1,11 @@
 {
     "prefix": ".",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "language": "de",
     "commandList": [
+        "profiles",
+        "stats",
         "version"
-    ]
+    ],
+    "statsAPIURL": "https://aoe2.net/api/leaderboard?game=aoe2de"
 }
