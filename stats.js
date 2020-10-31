@@ -2,7 +2,9 @@
 
 const profiles = require('./profiles.json');
 const fetch = require('node-fetch');
-const { statsAPIURL } = require('./config.json');
+const {
+    statsAPIURL
+} = require('./config.json');
 
 var id = 0;
 
@@ -10,14 +12,14 @@ var id = 0;
 var methods = {
     getStats: async function getStats(ladder, name) {
         let leaderboard = getLadder(ladder.toLowerCase());
-        if(checkProfiles(name) === false) {
+        if (checkProfiles(name) === false) {
             return -1;
         }
 
         // Getting the data ...
         let aoeID = profiles.array[id].aoe2net;
-        const requestURL = statsAPIURL + '&leaderboard_id=' + 
-        leaderboard + '&profile_id=' + aoeID;
+        const requestURL = statsAPIURL + '&leaderboard_id=' +
+            leaderboard + '&profile_id=' + aoeID;
 
         console.log(requestURL);
 
