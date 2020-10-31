@@ -17,7 +17,7 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 
   // Set bot status
-  client.user.setActivity(`.version - ${misc.data.version()}`,  {
+  client.user.setActivity('.version',  {
       type: 'WATCHING'
   })
     .catch(console.error);
