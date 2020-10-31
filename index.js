@@ -19,8 +19,7 @@ client.on('ready', () => {
   // Set bot status
   client.user.setActivity('.version',  {
       type: 'WATCHING'
-  })
-    .catch(console.error);
+  }).catch(console.error);
 });
 
 // Client on message -----------------------------------------------------
@@ -29,24 +28,24 @@ client.on('message', message => {
     const command = args.shift().toLowerCase();
 
     // Ignore messages without prefix and bot messages...
-    if(!message.content.startsWith(prefix) || message.author.bot) return; 
+    if (!message.content.startsWith(prefix) || message.author.bot) return; 
 
-    if(commandList.includes('version') && command === 'version') {
+    if (commandList.includes('version') && command === 'version') {
         message.reply('`' + misc.data.version() + '`');
     }
 
-    if(commandList.includes('profiles') && command === 'profiles') {
+    if (commandList.includes('profiles') && command === 'profiles') {
         message.reply('ich habe diese Profile gefunden:');
         message.channel.send('`' + misc.data.profiles() + '`');   
     }
 
-    if(commandList.includes('stats') && command === 'stats') {
-        if(args.length < 2) {
+    if (commandList.includes('stats') && command === 'stats') {
+        if (args.length < 2) {
             message.reply(`dieser Befehl benötigt mehr Parameter!` +
             ` → ${prefix}help`);
         } else {
-            console.info('Okay!');
-            message.channel.send('`' + stats.data.getStats(args[0], args[1]) + '`');
+            message.channel.send('`' + 
+            stats.data.getStats(args[0], args[1]) + '`');
         }
     }
 });
