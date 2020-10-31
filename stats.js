@@ -4,7 +4,7 @@ const profiles = require('./profiles.json');
 const fetch = require('node-fetch');
 const { statsAPIURL } = require('./config.json');
 
-var id = 0, storedData = null;
+var id = 0;
 
 // Stats methods ---------------------------------------------------------
 var methods = {
@@ -15,13 +15,18 @@ var methods = {
         }
 
         // Getting the data ...
-        storedData = await getData(id, leaderboard);
-        console.log(storedData);
+        let aoeID = profiles.array[id].aoe2net;
+        const requestURL = statsAPIURL + '&leaderboard_id=' + 
+        leaderboard + '&profile_id=' + aoeID;
 
-        // TODO: How return this data???
-        // Returns atm [object Promise]
-        // Console.log works...
-        return storedData.last_match; // Should return Unix-time...
+        console.log(requestURL);
+
+        try {
+            let res = await fetch(requestURL);
+            return await res.json();
+        } catch (err) {
+            console.error(err);
+        }
     }
 }
 
@@ -51,15 +56,6 @@ function checkProfiles(name) {
         }
     }
     return false;
-}
-
-async function getData(id, leaderboard) {
-    let aoeID = profiles.array[id].aoe2net, stats = null;
-    const data = await fetch(statsAPIURL + '&leaderboard_id=' + 
-    leaderboard + '&profile_id=' + aoeID)
-    .then(response => response.json());
-    stats = data.leaderboard[0];
-    return stats;
 }
 
 exports.data = methods;

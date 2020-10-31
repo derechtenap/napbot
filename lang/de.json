@@ -1,3 +1,4 @@
 {
-    "err_missing_parameter": "dieser Befehl benötigt mehr Parameter!"
+    "err_missing_parameter": "dieser Befehl benötigt mehr Parameter!",
+    "err_no_data": "Zu diesen Parametern konnten keine Daten gefunden werden!"
 }
