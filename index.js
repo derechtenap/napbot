@@ -12,6 +12,10 @@ const stats = require('./stats.js');
 const { prefix, language, commandList } = require('./config.json');
 const TOKEN = require('./token.json');
 
+// Langauge Strings
+const strings = require(`./lang/${language}.json`);
+
+
 // Client on ready -------------------------------------------------------
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
@@ -41,7 +45,7 @@ client.on('message', message => {
 
     if (commandList.includes('stats') && command === 'stats') {
         if (args.length < 2) {
-            message.reply(`dieser Befehl benötigt mehr Parameter!` +
+            message.reply(strings.err_missing_parameter +
             ` → ${prefix}help`);
         } else {
             message.channel.send('`' + 
