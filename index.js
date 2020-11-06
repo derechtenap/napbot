@@ -57,9 +57,6 @@ client.on('message', message => {
 
                     if (ret.leaderboard != []) {
 
-                        // TODO: Remove log
-                        console.log(ret);
-
                         // Set Prefix 
                         const stat = ret.leaderboard[0];
                         const totalPlayers = ret.total;
