@@ -1,6 +1,5 @@
 'use strict';
 
-const profiles = require('./profiles.json');
 const fetch = require('node-fetch');
 const {
     statsAPIURL
