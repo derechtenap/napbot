@@ -3,7 +3,6 @@
 const {
     version
 } = require('./config.json');
-const profiles = require('./profiles.json');
 
 // Misc methods ----------------------------------------------------------
 var methods = {
