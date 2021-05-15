@@ -12,14 +12,10 @@ var id = 0;
 var methods = {
     getStats: async function getStats(ladder, name) {
         let leaderboard = getLadder(ladder.toLowerCase());
-        if (checkProfiles(name) === false) {
-            return -1;
-        }
 
         // Getting the data ...
-        let aoeID = profiles.array[id].aoe2net;
         const requestURL = statsAPIURL + '&leaderboard_id=' +
-            leaderboard + '&profile_id=' + aoeID;
+            leaderboard + '&search=' + name;
 
         console.log(requestURL);
 
@@ -48,16 +44,6 @@ function getLadder(ladder) {
         default:
             return -1;
     }
-}
-
-function checkProfiles(name) {
-    for (let i = 0; i < profiles.array.length; i++) {
-        if (profiles.array[i].name.includes(name)) {
-            id = i;
-            return true;
-        }
-    }
-    return false;
 }
 
 exports.data = methods;
