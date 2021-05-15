@@ -42,11 +42,6 @@ client.on('message', message => {
         message.reply('`' + misc.data.version() + '`');
     }
 
-    if (commandList.includes('profiles') && command === 'profiles') {
-        message.reply('ich habe diese Profile gefunden:');
-        message.channel.send('`' + misc.data.profiles() + '`');
-    }
-
     if (commandList.includes('stats') && command === 'stats') {
         if (args.length < 2) {
             message.reply(strings.err_missing_parameter +

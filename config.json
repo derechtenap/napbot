@@ -3,7 +3,6 @@
     "version": "0.0.2",
     "language": "de",
     "commandList": [
-        "profiles",
         "stats",
         "version"
     ],
