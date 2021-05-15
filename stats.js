@@ -28,6 +28,9 @@ var methods = {
 }
 
 // Helper functions ------------------------------------------------------
+
+// TODO: Deathmatch Ladders seems to be removed in the near feature. I need  
+// to update function then...
 function getLadder(ladder) {
     switch (ladder) {
         case 'unr':
