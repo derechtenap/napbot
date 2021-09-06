@@ -34,6 +34,19 @@ client.on('message', message => {
     const args = message.content.slice(prefix.length).split(' ');
     const command = args.shift().toLowerCase();
 
+    // Tracks used commands
+    // Substring to remove the prefix
+    if (message.content.startsWith(prefix) &&
+        commandList.includes((message.content).substring(1))) {
+
+        let time = new Date().getTime();
+        let user = message.author.tag;
+        let content = message.content
+        let server = message.channel.guild.name;
+
+        console.info(`${time} --- ${user} used ${content} on ${server}`);
+    }
+
     // Ignore messages without prefix and bot messages...
     if (!message.content.startsWith(prefix) || message.author.bot) return;
 
