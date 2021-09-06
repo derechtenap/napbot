@@ -29,8 +29,10 @@ var methods = {
 
 // Helper functions ------------------------------------------------------
 
-// TODO: Deathmatch Ladders seems to be removed in the near feature. I need  
-// to update function then...
+// Converts the User Input into the required leaderboard ID
+// Unranked = 0; 1v1 Deathmatch = 1; Team Deathmatch = 2;
+// 1v1 Random Map = 3; Team Random Map = 4; 1v1 Empire Wars = 13;
+// Team Empire Wars = 14;
 function getLadder(ladder) {
     switch (ladder) {
         case 'unr':
@@ -43,6 +45,10 @@ function getLadder(ladder) {
             return 3;
         case 'trm':
             return 4;
+        case 'emp':
+            return 13;
+        case 'tem':
+            return 14;
         default:
             return -1;
     }
