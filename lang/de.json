@@ -1,4 +1,18 @@
 {
+    "login_info": "Eingeloggt als",
     "err_missing_parameter": "dieser Befehl benötigt mehr Parameter!",
-    "err_no_data": "Zu diesen Parametern konnten keine Daten gefunden werden!"
+    "err_no_data": "Zu diesen Parametern konnten keine Daten gefunden werden!",
+    "aoe_stat_rating": "MMR \n(Aktuell)",
+    "aoe_stat_highest_rating": "MMR \n(Rekord)",
+    "aoe_stat_rating_last_game": "MMR \n(Letztes Spiel)",
+    "aoe_stat_rank": "Rang",
+    "aoe_stat_rank_value": "Platz",
+    "aoe_stat_games": "Spiele",
+    "aoe_stat_wins": "Siege",
+    "aoe_stat_losses": "Niederlagen",
+    "aoe_stat_drops": "Drops",
+    "aoe_stat_streak": "Aktuelle Streak",
+    "aoe_stat_provider": "Statistiken bereitgestellt von aoe2.net",
+    "aoe_stat_title": "Statistiken von",
+    "aoe_stat_profile_selection": "Ich habe verschiedene Profile gefunden:"
 }

@@ -19,10 +19,9 @@ const TOKEN = require('./token.json');
 // Langauge Strings
 const strings = require(`./lang/${language}.json`);
 
-
 // Client on ready -------------------------------------------------------
 client.on('ready', () => {
-    console.log(`Logged in as ${client.user.tag}!`);
+    console.log(strings.login_info + ` ${client.user.tag}!`);
 
     // Set bot status
     client.user.setActivity('.version', {
@@ -50,10 +49,10 @@ client.on('message', message => {
             stats.data.getStats(args[0], args[1]).then(
                 ret => {
 
-                        if(ret.count === 1) {
+                    if (ret.count === 1) {
                         // Set Prefix 
                         const stat = ret.leaderboard[0];
-                        const totalPlayers = ret.total;    
+                        const totalPlayers = ret.total;
                         // Create an embed Message
                         const embed = new Discord.MessageEmbed()
                             .setColor('#0099ff')
@@ -64,40 +63,40 @@ client.on('message', message => {
                             .setDescription('')
                             .setThumbnail()
                             .addFields({
-                                name: 'MMR \n(Aktuell)',
+                                name: strings.aoe_stat_rating,
                                 value: stat.rating,
                                 inline: true
                             }, {
-                                name: 'MMR \n(Rekord)',
+                                name: strings.aoe_stat_highest_rating,
                                 value: stat.highest_rating,
                                 inline: true
                             }, {
-                                name: 'MMR \n(Letztes Spiel)',
+                                name: strings.aoe_stat_rating_last_game,
                                 value: (stat.rating - stat.previous_rating),
                                 inline: true
                             }, {
-                                name: 'Rang',
+                                name: strings.aoe_stat_rank,
                                 value: `Platz ${stat.rank.toLocaleString('de-DE')} von ${totalPlayers.toLocaleString('de-DE')} Spielern`,
                                 inline: false
                             })
                             .addFields({
-                                name: 'Spiele',
+                                name: strings.aoe_stat_games,
                                 value: stat.games,
                                 inline: true
                             }, {
-                                name: 'Siege',
+                                name: strings.aoe_stat_wins,
                                 value: stat.wins,
                                 inline: true
                             }, {
-                                name: 'Niederlagen',
+                                name: strings.aoe_stat_losses,
                                 value: stat.losses,
                                 inline: true
                             }, {
-                                name: 'Drops',
+                                name: strings.aoe_stat_drops,
                                 value: stat.drops,
                                 inline: true
                             }, {
-                                name: 'Aktuelle Streak',
+                                name: strings.aoe_stat_streak,
                                 value: stat.streak,
                                 inline: true
                             })
@@ -106,63 +105,49 @@ client.on('message', message => {
                                 'Statistken von aoe2.net',
                                 'attachment://icon-aoe2net.png'
                             );
-                    
-                        // Display Clan
+
                         let displayClan = '';
-                    
+
                         if (stat.clan !== null) {
                             displayClan = stat.clan;
-                            embed.setTitle(`Statistiken von [${displayClan}] ${stat.name}`)
+                            embed.setTitle(`${strings.aoe_stat_title} [${displayClan}] ${stat.name}`)
                         } else {
-                            embed.setTitle(`Statistiken von ${stat.name}`)
+                            embed.setTitle(`${strings.aoe_stat_title} von ${stat.name}`)
                         }
-                    
+
                         message.channel.send(embed);
-                        }
-                        else if (ret.count > 1) {
+                    } else if (ret.count > 1) {
 
                         const embed = new Discord.MessageEmbed()
-                        .setColor('#0099ff')
-                        .attachFiles('./icon.jpg')
-                        .attachFiles('./icon-aoe2net.png')
-                        // Usage: 'name', 'icon', 'url'
-                        .setAuthor('napbot', 'attachment://icon.jpg', '')
-                        .setDescription('Ich habe verschiedene Profile gefunden:')
-                        .setThumbnail()
-                        .setTimestamp()
-                        .setFooter(
-                            'Statistken von aoe2.net',
-                            'attachment://icon-aoe2net.png'
-                        );
-
-                        const emojiArray = [
-                            '1️⃣',
-                            '2️⃣',
-                            '3️⃣',
-                            '4️⃣',
-                            '5️⃣',
-                            '6️⃣',
-                            '7️⃣',
-                            '8️⃣',
-                            '9️⃣',
-                            '🔟'
-                        ]
+                            .setColor('#0099ff')
+                            .attachFiles('./icon.jpg')
+                            .attachFiles('./icon-aoe2net.png')
+                            // Usage: 'name', 'icon', 'url'
+                            .setAuthor('napbot', 'attachment://icon.jpg', '')
+                            .setDescription(strings.aoe_stat_title)
+                            .setThumbnail()
+                            .setTimestamp()
+                            .setFooter(
+                                'Statistken von aoe2.net',
+                                'attachment://icon-aoe2net.png'
+                            );
 
                         ret.leaderboard.forEach(element => {
                             embed.addField('Spieler', element.name, false);
                         });
                         message.channel.send(embed).then(async addReaction => {
                             for (let i = 0; i < ret.leaderboard.length; i++) {
-                                if (i < emojiArray.length) {
-                                    await addReaction.react(emojiArray[i]);
+                                if (i < REACTION_EMOJI.length) {
+                                    await addReaction.react(REACTION_EMOJI[i]);
                                 }
                             }
 
-                            await addReaction.awaitReactions((reaction) => emojiArray.includes(reaction.emoji.name),
-                            { max: 1 }).then(collected => {
+                            await addReaction.awaitReactions((reaction) => REACTION_EMOJI.includes(reaction.emoji.name), {
+                                max: 1
+                            }).then(collected => {
 
-                                const stat = ret.leaderboard[emojiArray.indexOf(collected.first().emoji.name)];
-                                const totalPlayers = ret.total;    
+                                const stat = ret.leaderboard[REACTION_EMOJI.indexOf(collected.first().emoji.name)];
+                                const totalPlayers = ret.total;
                                 // Create an embed Message
                                 const embed = new Discord.MessageEmbed()
                                     .setColor('#0099ff')
@@ -173,40 +158,40 @@ client.on('message', message => {
                                     .setDescription('')
                                     .setThumbnail()
                                     .addFields({
-                                        name: 'MMR \n(Aktuell)',
+                                        name: strings.aoe_stat_rating,
                                         value: stat.rating,
                                         inline: true
                                     }, {
-                                        name: 'MMR \n(Rekord)',
+                                        name: strings.aoe_stat_highest_rating,
                                         value: stat.highest_rating,
                                         inline: true
                                     }, {
-                                        name: 'MMR \n(Letztes Spiel)',
+                                        name: strings.aoe_stat_rating_last_game,
                                         value: (stat.rating - stat.previous_rating),
                                         inline: true
                                     }, {
-                                        name: 'Rang',
+                                        name: strings.aoe_stat_rank,
                                         value: `Platz ${stat.rank.toLocaleString('de-DE')} von ${totalPlayers.toLocaleString('de-DE')} Spielern`,
                                         inline: false
                                     })
                                     .addFields({
-                                        name: 'Spiele',
+                                        name: strings.aoe_stat_games,
                                         value: stat.games,
                                         inline: true
                                     }, {
-                                        name: 'Siege',
+                                        name: strings.aoe_stat_wins,
                                         value: stat.wins,
                                         inline: true
                                     }, {
-                                        name: 'Niederlagen',
+                                        name: strings.aoe_stat_losses,
                                         value: stat.losses,
                                         inline: true
                                     }, {
-                                        name: 'Drops',
+                                        name: strings.aoe_stat_drops,
                                         value: stat.drops,
                                         inline: true
                                     }, {
-                                        name: 'Aktuelle Streak',
+                                        name: strings.aoe_stat_streak,
                                         value: stat.streak,
                                         inline: true
                                     })
@@ -215,18 +200,17 @@ client.on('message', message => {
                                         'Statistken von aoe2.net',
                                         'attachment://icon-aoe2net.png'
                                     );
-                                    
-                                    // Display Clan
-                                    let displayClan = '';
-                                
-                                    if (stat.clan !== null) {
-                                        displayClan = stat.clan;
-                                        embed.setTitle(`Statistiken von [${displayClan}] ${stat.name}`)
-                                    } else {
-                                        embed.setTitle(`Statistiken von ${stat.name}`)
-                                    }
 
-                                    message.channel.send(embed);
+                                let displayClan = '';
+
+                                if (stat.clan !== null) {
+                                    displayClan = stat.clan;
+                                    embed.setTitle(`${strings.aoe_stat_title} [${displayClan}] ${stat.name}`)
+                                } else {
+                                    embed.setTitle(`${strings.aoe_stat_title} von ${stat.name}`)
+                                }
+
+                                message.channel.send(embed);
                             })
                         });
                     }
