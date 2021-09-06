@@ -2,6 +2,7 @@
     "prefix": ".",
     "version": "0.0.2",
     "language": "de",
+    "numberFormat": "de-DE",
     "commandList": [
         "stats",
         "version"
