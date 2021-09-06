@@ -19,6 +19,20 @@ const TOKEN = require('./token.json');
 // Langauge Strings
 const strings = require(`./lang/${language}.json`);
 
+// Reaction Emoji
+const REACTION_EMOJI = [
+    '1️⃣',
+    '2️⃣',
+    '3️⃣',
+    '4️⃣',
+    '5️⃣',
+    '6️⃣',
+    '7️⃣',
+    '8️⃣',
+    '9️⃣',
+    '🔟'
+];
+
 // Client on ready -------------------------------------------------------
 client.on('ready', () => {
     console.log(strings.login_info + ` ${client.user.tag}!`);
