@@ -14,7 +14,7 @@ Display the current used version in the chat.
 - Team Random Map: **trm**
 - 1v1 Empire Wars: **emp**
 - Team Empire Wars: **tem**
-> Exsample: .stats rm theViper --> To fetch the data of the legendary snake!
+> Example: .stats rm theViper --> To fetch the data of the legendary snake!
 ## Token
 **You need a Discord Bot and a valid token for this Bot**. Create a JSON file and place it into the root folder. You can create and find your Token and Bot at the [Discord Developer Portal](https://discord.com/developers/docs/intro).
 ```json
