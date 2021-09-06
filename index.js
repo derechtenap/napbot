@@ -12,12 +12,14 @@ const stats = require('./stats.js');
 const {
     prefix,
     language,
-    commandList
+    commandList,
+    numberFormat
 } = require('./config.json');
 const TOKEN = require('./token.json');
 
-// Langauge Strings
-const strings = require(`./lang/${language}.json`);
+// Langauge Settings
+const STRINGS = require(`./lang/${language}.json`);
+const NUMBER_FORMAT = numberFormat;
 
 // Reaction Emoji
 // If a player search finds more than one player, these
@@ -37,7 +39,7 @@ const REACTION_EMOJI = [
 
 // Client on ready -------------------------------------------------------
 client.on('ready', () => {
-    console.log(strings.login_info + ` ${client.user.tag}!`);
+    console.log(STRINGS.login_info + ` ${client.user.tag}!`);
 
     // Set bot status
     client.user.setActivity('.version', {
@@ -52,8 +54,7 @@ client.on('message', message => {
 
     // Tracks used commands
     // Substring to remove the prefix
-    if (message.content.startsWith(prefix) &&
-        commandList.includes((message.content).substring(1))) {
+    if (message.content.startsWith(prefix) && commandList.includes((message.content).substring(1))) {
 
         let time = new Date().getTime();
         let user = message.author.tag;
@@ -72,8 +73,7 @@ client.on('message', message => {
 
     if (commandList.includes('stats') && command === 'stats') {
         if (args.length < 2) {
-            message.reply(strings.err_missing_parameter +
-                ` → ${prefix}help`);
+            message.reply(`${STRINGS.err_missing_parameter} → ${prefix}help`);
         } else {
             stats.data.getStats(args[0], args[1]).then(
                 ret => {
@@ -92,40 +92,40 @@ client.on('message', message => {
                             .setDescription('')
                             .setThumbnail()
                             .addFields({
-                                name: strings.aoe_stat_rating,
+                                name: STRINGS.aoe_stat_rating,
                                 value: stat.rating,
                                 inline: true
                             }, {
-                                name: strings.aoe_stat_highest_rating,
+                                name: STRINGS.aoe_stat_highest_rating,
                                 value: stat.highest_rating,
                                 inline: true
                             }, {
-                                name: strings.aoe_stat_rating_last_game,
+                                name: STRINGS.aoe_stat_rating_last_game,
                                 value: (stat.rating - stat.previous_rating),
                                 inline: true
                             }, {
-                                name: strings.aoe_stat_rank,
-                                value: `Platz ${stat.rank.toLocaleString('de-DE')} von ${totalPlayers.toLocaleString('de-DE')} Spielern`,
+                                name: STRINGS.aoe_stat_rank,
+                                value: `Platz ${stat.rank.toLocaleString(NUMBER_FORMAT)} von ${totalPlayers.toLocaleString(NUMBER_FORMAT)} Spielern`,
                                 inline: false
                             })
                             .addFields({
-                                name: strings.aoe_stat_games,
+                                name: STRINGS.aoe_stat_games,
                                 value: stat.games,
                                 inline: true
                             }, {
-                                name: strings.aoe_stat_wins,
+                                name: STRINGS.aoe_stat_wins,
                                 value: stat.wins,
                                 inline: true
                             }, {
-                                name: strings.aoe_stat_losses,
+                                name: STRINGS.aoe_stat_losses,
                                 value: stat.losses,
                                 inline: true
                             }, {
-                                name: strings.aoe_stat_drops,
+                                name: STRINGS.aoe_stat_drops,
                                 value: stat.drops,
                                 inline: true
                             }, {
-                                name: strings.aoe_stat_streak,
+                                name: STRINGS.aoe_stat_streak,
                                 value: stat.streak,
                                 inline: true
                             })
@@ -139,9 +139,9 @@ client.on('message', message => {
 
                         if (stat.clan !== null) {
                             displayClan = stat.clan;
-                            embed.setTitle(`${strings.aoe_stat_title} [${displayClan}] ${stat.name}`)
+                            embed.setTitle(`${STRINGS.aoe_stat_title} [${displayClan}] ${stat.name}`)
                         } else {
-                            embed.setTitle(`${strings.aoe_stat_title} von ${stat.name}`)
+                            embed.setTitle(`${STRINGS.aoe_stat_title} von ${stat.name}`)
                         }
 
                         message.channel.send(embed);
@@ -153,7 +153,7 @@ client.on('message', message => {
                             .attachFiles('./icon-aoe2net.png')
                             // Usage: 'name', 'icon', 'url'
                             .setAuthor('napbot', 'attachment://icon.jpg', '')
-                            .setDescription(strings.aoe_stat_title)
+                            .setDescription(STRINGS.aoe_stat_profile_selection)
                             .setThumbnail()
                             .setTimestamp()
                             .setFooter(
@@ -187,40 +187,40 @@ client.on('message', message => {
                                     .setDescription('')
                                     .setThumbnail()
                                     .addFields({
-                                        name: strings.aoe_stat_rating,
+                                        name: STRINGS.aoe_stat_rating,
                                         value: stat.rating,
                                         inline: true
                                     }, {
-                                        name: strings.aoe_stat_highest_rating,
+                                        name: STRINGS.aoe_stat_highest_rating,
                                         value: stat.highest_rating,
                                         inline: true
                                     }, {
-                                        name: strings.aoe_stat_rating_last_game,
+                                        name: STRINGS.aoe_stat_rating_last_game,
                                         value: (stat.rating - stat.previous_rating),
                                         inline: true
                                     }, {
-                                        name: strings.aoe_stat_rank,
-                                        value: `Platz ${stat.rank.toLocaleString('de-DE')} von ${totalPlayers.toLocaleString('de-DE')} Spielern`,
+                                        name: STRINGS.aoe_stat_rank,
+                                        value: `Platz ${stat.rank.toLocaleString(NUMBER_FORMAT)} von ${totalPlayers.toLocaleString(NUMBER_FORMAT)} Spielern`,
                                         inline: false
                                     })
                                     .addFields({
-                                        name: strings.aoe_stat_games,
+                                        name: STRINGS.aoe_stat_games,
                                         value: stat.games,
                                         inline: true
                                     }, {
-                                        name: strings.aoe_stat_wins,
+                                        name: STRINGS.aoe_stat_wins,
                                         value: stat.wins,
                                         inline: true
                                     }, {
-                                        name: strings.aoe_stat_losses,
+                                        name: STRINGS.aoe_stat_losses,
                                         value: stat.losses,
                                         inline: true
                                     }, {
-                                        name: strings.aoe_stat_drops,
+                                        name: STRINGS.aoe_stat_drops,
                                         value: stat.drops,
                                         inline: true
                                     }, {
-                                        name: strings.aoe_stat_streak,
+                                        name: STRINGS.aoe_stat_streak,
                                         value: stat.streak,
                                         inline: true
                                     })
@@ -234,9 +234,9 @@ client.on('message', message => {
 
                                 if (stat.clan !== null) {
                                     displayClan = stat.clan;
-                                    embed.setTitle(`${strings.aoe_stat_title} [${displayClan}] ${stat.name}`)
+                                    embed.setTitle(`${STRINGS.aoe_stat_title} [${displayClan}] ${stat.name}`)
                                 } else {
-                                    embed.setTitle(`${strings.aoe_stat_title} von ${stat.name}`)
+                                    embed.setTitle(`${STRINGS.aoe_stat_title} von ${stat.name}`)
                                 }
 
                                 message.channel.send(embed);
@@ -244,7 +244,7 @@ client.on('message', message => {
                         });
                     }
                     if (ret.count <= 0) {
-                        message.channel.send(strings.err_no_data);
+                        message.channel.send(STRINGS.err_no_data);
                     }
                 }
 
