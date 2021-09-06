@@ -20,6 +20,8 @@ const TOKEN = require('./token.json');
 const strings = require(`./lang/${language}.json`);
 
 // Reaction Emoji
+// If a player search finds more than one player, these
+// Emojis are used to select the desired player.
 const REACTION_EMOJI = [
     '1️⃣',
     '2️⃣',
