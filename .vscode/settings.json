@@ -1,0 +1,7 @@
+{
+    "cSpell.language": "en,de",
+    "cSpell.words": [
+        "napbot"
+    ],
+    "typescript.tsdk": "node_modules\\typescript\\lib",
+}
