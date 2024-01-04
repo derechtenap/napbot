@@ -6,6 +6,5 @@
     "commandList": [
         "stats",
         "version"
-    ],
-    "statsAPIURL": "https://aoe2.net/api/leaderboard?game=aoe2de"
+    ]
 } 
